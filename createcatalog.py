@@ -1,15 +1,15 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Item, Category, User
+from database_setup import Base, Item, Category, Users
 
-engine = create_engine('sqlite:///itemcatalog.db')
+engine = create_engine('postgresql://catalog:catalog@localhost/itemcatalog')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
-User1 = User(name="Test Account", email="testaccount@gmail.com")
+User1 = Users(name="Test Account", email="testaccount@gmail.com")
 session.add(User1)
 session.commit()
 
@@ -30,8 +30,8 @@ session.commit()
 
 item2 = Item(user_id=1, name="Skyrim", description="The Elder Scrolls V: \
     Skyrim is an action role-playing video game developed by Bethesda Game \
-        Studios and published by Bethesda Softworks. It is the fifth main \
-            installment in The Elder Scrolls series.", category=category1)
+        Studios and published by Bethesda Softworks.",
+	     category=category1)
 
 
 session.add(item2)
@@ -45,10 +45,8 @@ session.commit()
 
 item1 = Item(user_id=1, name="Counter Strike", description="Counter-Strike \
     (CS) is a series of multiplayer first-person shooter video games, in \
-        which teams of terrorists battle to perpetrate an act of terror \
-            (bombing, hostage-taking, assassination) and counter-terrorists \
-                try to prevent it (bomb defusal, hostage rescue).",
-             category=category2)
+        which teams of terrorists battle to perpetrate an act of terror ",
+	     category=category2)
 
 
 session.add(item1)

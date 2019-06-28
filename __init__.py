@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, \
 from flask import session as login_session
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Category, Item, User
+from database_setup import Base, Category, Item, Users
 import random
 import string
 
@@ -18,11 +18,10 @@ import requests
 app = Flask(__name__)
 
 CLIENT_ID = json.loads(
-    open('client_secrets.json', 'r').read())['web']['client_id']
+    open('/var/www/UdacityFinalProject/UdacityFinalProject/client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Catalog Application"
 
-engine = create_engine('sqlite:///itemcatalog.db',
-                       connect_args={'check_same_thread': False}, echo=True)
+engine = create_engine('postgresql://catalog:catalog@localhost/itemcatalog')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
@@ -129,22 +128,22 @@ def gconnect():
 
 
 def createUser(login_session):
-    newUser = User(name=login_session['username'],
+    newUser = Users(name=login_session['username'],
                    email=login_session['email'])
     session.add(newUser)
     session.commit()
-    user = session.query(User).filter_by(email=login_session['email']).one()
+    user = session.query(Users).filter_by(email=login_session['email']).one()
     return user.id
 
 
 def getUserInfo(user_id):
-    user = session.query(User).filter_by(id=user_id).one()
+    user = session.query(Users).filter_by(id=user_id).one()
     return user
 
 
 def getUserID(email):
     try:
-        user = session.query(User).filter_by(email=email).one()
+        user = session.query(Users).filter_by(email=email).one()
         return user.id
     except:
         return None
@@ -326,4 +325,4 @@ if __name__ == '__main__':
     app.debug = True
     app.secret_key = 'super_secret_key'
     app.run(host='0.0.0.0', port=5000)
-    print("hello")
+

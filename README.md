@@ -1,4 +1,4 @@
-#Project Linux Server Configuration
+## Project Linux Server Configuration
 
 The purpose of this project was to take a baseline installation of a Linux server and prepare it to host my web application. I had to secure my server from a number of attack vectors, install and configure a database server, and deploy my existing web applications onto it.
 

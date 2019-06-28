@@ -56,6 +56,12 @@ Deployed existing flask application
 Changed Timezone to UTC
 ```
 
+## Third Party Resources
+```
+https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps
+https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-14-04
+```
+
 ## Design
 
 The design of this program was straightfoward. I first set up an server instance with amazon lightsail. Then I added and configured a user that met the specification. Then I used postgresql for my database and deployed my existing flask application.

@@ -1,0 +1,39 @@
+{% extends "main.html" %}
+{% block content %}
+	<header class="toolbar">
+			{% if not session.username %}
+				<button class="btn-default"><a href="/login"> Login </a> </button>
+			{% else %}
+			<h6><a href="/gdisconnect">Logout</a></h6>
+			{% endif %}
+	</header>
+	<div class="row divider green">
+		<div class="col-md-12"></div>
+	</div>
+	<div class="row banner menu">
+		<div class="col-md-11 col-md-offset-1 padding-none">
+			<h1>{{ category.name }}
+            <figure class="creator">
+                    <figcaption>{{ creator.name }}</figcaption>
+            </figure>
+			</h1>
+
+		</div>
+    </div>
+	
+	{% if items !=[] %}	
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-4">			
+				<h2>Items</h2>
+					{% for i in items %}
+						<div class="menu-item">
+							<h3>{{i.name}}</h3>
+							<p>{{i.description}}</p>
+						</div>
+					{% endfor %}
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+	{% endif %}
+{% endblock %}
